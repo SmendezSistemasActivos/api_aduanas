@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "API de Base de Datos y Búsqueda"
+paths:
+  /database/records:
+    post:
+      summary: Añadir nuevos registros a la base de datos (RDS con Amazon Aurora).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recordName:
+                  type: string
+                recordData:
+                  type: object
+      responses:
+        '201':
+          description: Registro añadido correctamente.
+    get:
+      summary: Obtener todos los registros.
+      responses:
+        '200':
+          description: Lista de registros.
+    put:
+      summary: Actualizar un registro.
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                updatedData:
+                  type: object
+      responses:
+        '200':
+          description: Registro actualizado correctamente.
+    delete:
+      summary: Eliminar un registro.
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Registro eliminado correctamente.
+  
+  /search:
+    get:
+      summary: Realizar una búsqueda usando Elasticsearch.
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Resultados de la búsqueda.

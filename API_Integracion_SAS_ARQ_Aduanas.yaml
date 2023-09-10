@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "API de SAS Viya"
+paths:
+  /sas/data:
+    post:
+      summary: Cargar datos a SAS Viya.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dataName:
+                  type: string
+                dataSource:
+                  type: string
+      responses:
+        '201':
+          description: Datos cargados correctamente.
+        '400':
+          description: Error al cargar datos.
+    get:
+      summary: Recuperar un conjunto de datos específico.
+      parameters:
+        - name: dataId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalles del conjunto de datos.
+        '404':
+          description: Conjunto de datos no encontrado.
+    delete:
+      summary: Eliminar un conjunto de datos.
+      parameters:
+        - name: dataId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Conjunto de datos eliminado correctamente.
+        '404':
+          description: Conjunto de datos no encontrado.
+  
+  /sas/analysis:
+    post:
+      summary: Iniciar un nuevo análisis en SAS Viya.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                analysisType:
+                  type: string
+                dataId:
+                  type: string
+      responses:
+        '201':
+          description: Análisis iniciado correctamente.
+        '400':
+          description: Error al iniciar el análisis.
+    get:
+      summary: Obtener el resultado de un análisis específico.
+      parameters:
+        - name: analysisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Resultado del análisis.
+        '404':
+          description: Análisis no encontrado.
+    delete:
+      summary: Eliminar un análisis.
+      parameters:
+        - name: analysisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Análisis eliminado correctamente.
+        '404':
+          description: Análisis no encontrado.

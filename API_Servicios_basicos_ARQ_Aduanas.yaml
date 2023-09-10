@@ -1,0 +1,129 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "API de Servicios de Aduanas de Chile"
+paths:
+  /auth/login:
+    post:
+      summary: Autenticación de usuarios.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Usuario autenticado correctamente
+        '401':
+          description: Autenticación fallida
+
+  /auth/logout:
+    post:
+      summary: Cierre de sesión.
+      responses:
+        '200':
+          description: Sesión cerrada correctamente
+
+  /auth/signup:
+    post:
+      summary: Registro de nuevos usuarios.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '201':
+          description: Usuario creado correctamente
+        '400':
+          description: Error en la creación
+
+  /auth/me:
+    get:
+      summary: Información del usuario autenticado.
+      responses:
+        '200':
+          description: Detalles del usuario
+        '401':
+          description: No autenticado
+
+  /users:
+    get:
+      summary: Obtener todos los usuarios.
+      responses:
+        '200':
+          description: Lista de usuarios
+    post:
+      summary: Crear un nuevo usuario.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '201':
+          description: Usuario creado correctamente
+
+  /users/{userId}:
+    get:
+      summary: Detalles de un usuario específico.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalles del usuario
+    put:
+      summary: Actualizar información de un usuario.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Usuario actualizado correctamente
+    delete:
+      summary: Eliminar usuario.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario eliminado correctamente

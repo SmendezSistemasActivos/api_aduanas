@@ -1,0 +1,46 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "API de Streaming y Cola de Mensajes"
+paths:
+  /streaming/events:
+    post:
+      summary: Añadir un nuevo evento para streaming a través de Kinesis.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventName:
+                  type: string
+                eventData:
+                  type: object
+      responses:
+        '201':
+          description: Evento añadido correctamente.
+    get:
+      summary: Obtener los últimos eventos en tiempo real.
+      responses:
+        '200':
+          description: Lista de últimos eventos.
+  
+  /queue/messages:
+    post:
+      summary: Añadir un nuevo mensaje a la cola SQS.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      responses:
+        '201':
+          description: Mensaje añadido a la cola.
+    get:
+      summary: Obtener y procesar el próximo mensaje de la cola.
+      responses:
+        '200':
+          description: Próximo mensaje en la cola.

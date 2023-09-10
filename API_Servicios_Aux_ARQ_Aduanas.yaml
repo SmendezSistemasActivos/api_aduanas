@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "API de Cache con ElastiCache (Redis)"
+paths:
+  /cache/{key}:
+    get:
+      summary: Recuperar un valor del cache en ElastiCache (Redis).
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Valor recuperado del cache.
+    post:
+      summary: Guardar un valor en cache.
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+      responses:
+        '201':
+          description: Valor guardado en cache.
+    delete:
+      summary: Eliminar un valor del cache.
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Valor eliminado del cache.
